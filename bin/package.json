@@ -1,0 +1,10 @@
+{
+	"name": "cb-server-tools",
+	"description": "Convenient tools.",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"couchbase": "*",
+		"node-uuid": "*"
+	}
+}
