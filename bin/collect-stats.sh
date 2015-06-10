@@ -1,12 +1,22 @@
 #!/bin/sh
-CB_VER=`/opt/couchbase/bin/cbstats localhost:11210 all |grep -w version |awk '{print $2}'`
-OUT_FILE="${CB_VER}_`showip`_`date +"%Y-%m-%d-%H%M"`.log"
+
+HOST=$1
+BUCKET=$2
+
+if [ -z $HOST ]; then
+  echo "hostname is required."
+  exit 1
+fi
+
+if [ -z $BUCKET ]; then
+  BUCKET=default
+fi
+
 while [ true ]
 do
   NOW=`date +"%Y-%m-%d %H:%M:%S"`
-  STATS=`/opt/couchbase/bin/cbstats localhost:11210 all |awk '{printf "%s,", $2}' |awk '{print}'`
-  # echo $NOW,$STATS |tee -a $OUT_FILE
-  echo $NOW,$STATS >> $OUT_FILE
+  STATS=`/opt/couchbase/bin/cbstats -b $BUCKET $HOST:11210 all |awk '{printf "%s,", $2}' |awk '{print}'`
+  echo $NOW,$STATS
   sleep 5
 done
 

@@ -3,8 +3,7 @@
 nic=$1
 
 if [ -z $nic ]; then
-  echo "Please specify nic to use. ex) showip eth0"
-  exit 1
+  nic=eth0
 fi
 
 ifconfig $nic |grep 'inet addr:' |awk '{print $2}' |cut -d ':' -f 2
