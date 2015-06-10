@@ -12,10 +12,12 @@ if [ -z $BUCKET ]; then
   BUCKET=default
 fi
 
+DIR=`dirname $0`
+CMD=`$DIR/get-cbstats-command.sh`
 while [ true ]
 do
   NOW=`date +"%Y-%m-%d %H:%M:%S"`
-  STATS=`/opt/couchbase/bin/cbstats -b $BUCKET $HOST:11210 all |awk '{printf "%s,", $2}' |awk '{print}'`
+  STATS=`"$CMD" -b $BUCKET $HOST:11210 all |awk '{printf "%s,", $2}' |awk '{print}'`
   echo $NOW,$STATS
   sleep 5
 done
