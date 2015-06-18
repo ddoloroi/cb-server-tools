@@ -1,7 +1,6 @@
 #!/bin/sh
 
-read -p "Node IP Address to add:" nodes
-for s in nodes; do
+for s in $@; do
 	echo "add $s"
 	/opt/couchbase/bin/couchbase-cli server-add -c localhost:8091 \
 		-u Administrator -p password \
